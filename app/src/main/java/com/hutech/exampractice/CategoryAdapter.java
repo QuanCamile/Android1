@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 //command nhatminh
+//võ anh quan
 public class CategoryAdapter extends BaseAdapter {
     private List<CategoryModel> cat_List;
 
