@@ -3,12 +3,15 @@ package com.hutech.exampractice;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +25,8 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView backB;
     private FirebaseAuth mAuth;
     private String emailStr, passStr, confirmPassStr, nameStr;
+    private Dialog progressDialog;
+    private TextView dialogText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,26 +40,29 @@ public class SignUpActivity extends AppCompatActivity {
         signUpB = findViewById(R.id.signupB);
         backB = findViewById(R.id.backB);
 
+
+        progressDialog = new Dialog(SignUpActivity.this);
+        progressDialog.setContentView(R.layout.dialog_layout);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        dialogText = progressDialog.findViewById(R.id.dialog_text);
+        dialogText.setText("Registering user...");
+
         mAuth = FirebaseAuth.getInstance();
 
-        backB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        backB.setOnClickListener((view) ->{
+            finish();
+        });
 
-                finish();
+        signUpB.setOnClickListener((view) ->{
+            if(validate())
+            {
+                signUpBNewUser();
             }
         });
 
-        signUpB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(validate())
-                {
-                    signUpBNewUser();
-                }
 
-            }
-        });
     }
 
     private boolean validate(){
@@ -95,17 +103,22 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
     }
     private void signUpBNewUser(){
+        progressDialog.show();
+
+
         mAuth.createUserWithEmailAndPassword(emailStr, passStr)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                            Toast.makeText(SignUpActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            SignUpActivity.this.finish();
+                           progressDialog.dismiss();
+                           Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                           startActivity(intent);
+                           SignUpActivity.this.finish();
                         } else {
                             // If sign in fails, display a message to the user.
+                            progressDialog.dismiss();
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
