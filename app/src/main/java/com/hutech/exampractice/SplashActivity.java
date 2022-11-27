@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+// test git
 public class SplashActivity extends AppCompatActivity {
 
     private TextView appName;
@@ -41,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(mAuth.getCurrentUser() == null)
+                if(mAuth.getCurrentUser() != null)
                 {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
