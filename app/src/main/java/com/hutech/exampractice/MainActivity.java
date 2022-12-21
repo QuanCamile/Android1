@@ -1,10 +1,12 @@
 package com.hutech.exampractice;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -12,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -27,14 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private BottomNavigationView bottomNavigationView;
+    private TextView drawerProfileName, drawerProfileText;
+
     private FrameLayout main_frame;
+    public  DrawerLayout mDrawer;
+
+    private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @SuppressLint("NonConstantResourceId")
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-
                     switch (menuItem.getItemId())
                     {
                         case R.id.nav_home:
@@ -48,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.nav_account:
                             setFragement(new AccountFragment());
                             return true;
-
                     }
-
                     return false;
                 }
             };
@@ -63,30 +67,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+
         bottomNavigationView = findViewById(R.id.bottom_nav_bar);
-        main_frame = findViewById(R.id.main_frame);
+        main_frame = findViewById(R.id.nav_host_fragment_content_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        /*binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+       /* binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });*/
-        DrawerLayout drawer = binding.drawerLayout;
+        //DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
+        mDrawer = findViewById(R.id.drawer_layout);
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setDrawerLayout(drawer)
+               // R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_leaderboard, R.id.nav_account)
+                .setOpenableLayout(mDrawer)
                 .build();
-        /*NavController navController = Navigation.findNavController(this, R.id.nav_home);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);*/
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        setupDrawerContent(navigationView);
+
+        drawerProfileName = navigationView.getHeaderView(0).findViewById(R.id.nav_drawer_name);
+        drawerProfileText = navigationView.getHeaderView(0).findViewById(R.id.nav_drawer_text_img);
+
+        String name = DbQuery.myProfile.getName();
+        drawerProfileName.setText(name);
+        drawerProfileText.setText(name.toUpperCase().substring(0,1));
 
         setFragement(new CategoryFragment());
-
-
     }
 
     private void setFragement(Fragment fragement){
@@ -94,17 +109,55 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(main_frame.getId(), fragement);
         transaction.commit();
     }
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
 
-   /* @Override
+    // Hàm lăng nghe ---> điều hướng
+    public void setupDrawerContent(NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectDrawerItem(item);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == android.R.id.home) {
+            mDrawer.openDrawer(GravityCompat.START);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Lắng nghe drawer để load fragment tương ứng
+
+    public void selectDrawerItem(MenuItem menuItem){
+        Fragment fragment;
+        switch (menuItem.getItemId()){
+            case R.id.nav_leaderboard:
+                setFragement(new LeaderBoardFragment() );
+                bottomNavigationView.setSelectedItemId(R.id.nav_leaderboard);
+                break;
+            case R.id.nav_account:
+                setFragement(new AccountFragment());
+                bottomNavigationView.setSelectedItemId(R.id.nav_account);
+                break;
+            default:
+                fragment = new CategoryFragment();
+                bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                setFragement(fragment);
+        }
+        mDrawer.closeDrawers();
+
+    }
+
+
+
+   @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_home);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }*/
+    }
 }

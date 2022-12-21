@@ -118,7 +118,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess() {
 
-                                    DbQuery.loadCategories(new MyCompleteListener() {
+                                    DbQuery.loadData(new MyCompleteListener() {
                                         @Override
                                         public void onSuccess() {
                                             progressDialog.dismiss();
@@ -129,13 +129,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onFailure() {
-
                                             Toast.makeText(SignUpActivity.this, "Something went wrong ! Please Try Again Later !", Toast.LENGTH_SHORT).show();
                                             progressDialog.dismiss();
                                         }
                                     });
-
-
                                 }
 
                                 @Override

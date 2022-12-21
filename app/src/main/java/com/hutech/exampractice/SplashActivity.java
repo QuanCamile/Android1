@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 if(mAuth.getCurrentUser() != null)
                 {
-                    DbQuery.loadCategories(new MyCompleteListener() {
+                    DbQuery.loadData(new MyCompleteListener() {
                         @Override
                         public void onSuccess() {
                             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
                         public void onFailure() {
 
                             Toast.makeText(SplashActivity.this, "Something went wrong ! Please Try Again Later !", Toast.LENGTH_SHORT).show();
-                            //
+
                         }
                     });
 

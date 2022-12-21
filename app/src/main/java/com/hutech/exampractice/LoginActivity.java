@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                            DbQuery.loadCategories(new MyCompleteListener() {
+                            DbQuery.loadData(new MyCompleteListener() {
                                 @Override
                                 public void onSuccess() {
                                     progressDialog.dismiss();
@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                         DbQuery.createUserData(user.getEmail(), user.getDisplayName(), new MyCompleteListener() {
                             @Override
                             public void onSuccess() {
-                                DbQuery.loadCategories(new MyCompleteListener() {
+                                DbQuery.loadData(new MyCompleteListener() {
                                     @Override
                                     public void onSuccess() {
                                         progressDialog.dismiss();
@@ -204,7 +204,6 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         LoginActivity.this.finish();
                                     }
-
                                     @Override
                                     public void onFailure() {
                                         progressDialog.dismiss();
@@ -213,10 +212,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             }
-
                             @Override
                             public void onFailure() {
-
                                 progressDialog.dismiss();
                                 Toast.makeText(LoginActivity.this, "Something went wrong ! Please try again",
                                         Toast.LENGTH_SHORT).show();
@@ -224,10 +221,9 @@ public class LoginActivity extends AppCompatActivity {
                         });
                     }
                     else{
-                        DbQuery.loadCategories(new MyCompleteListener() {
+                        DbQuery.loadData(new MyCompleteListener() {
                             @Override
                             public void onSuccess() {
-
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
@@ -236,7 +232,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure() {
-
                                 progressDialog.dismiss();
                                 Toast.makeText(LoginActivity.this, "Something went wrong ! Please try again",
                                         Toast.LENGTH_SHORT).show();
