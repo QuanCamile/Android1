@@ -44,15 +44,18 @@ public class MainActivity extends AppCompatActivity {
                     switch (menuItem.getItemId())
                     {
                         case R.id.nav_home:
-                            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                           // bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                            setFragement(new CategoryFragment());
                             return true;
 
                         case R.id.nav_leaderboard:
-                            bottomNavigationView.setSelectedItemId(R.id.nav_leaderboard);
+                            //bottomNavigationView.setSelectedItemId(R.id.nav_leaderboard);
+                            setFragement(new LeaderBoardFragment());
                             return true;
 
                         case R.id.nav_account:
-                            bottomNavigationView.setSelectedItemId(R.id.nav_account);
+                           // bottomNavigationView.setSelectedItemId(R.id.nav_account);
+                            setFragement(new AccountFragment());
                             return true;
                     }
                     return false;
@@ -151,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
 
     }
-
-
 
    @Override
     public boolean onSupportNavigateUp() {

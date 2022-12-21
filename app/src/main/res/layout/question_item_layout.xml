@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -33,6 +34,7 @@
         android:text="option A"
         android:textSize="16sp"
         android:background="@drawable/unselected_btn"
+        app:backgroundTint="@null"
         android:elevation="3dp"
         android:translationZ="3dp"
         android:stateListAnimator="@null"
@@ -46,6 +48,7 @@
         android:text="option B"
         android:textSize="16sp"
         android:background="@drawable/unselected_btn"
+        app:backgroundTint="@null"
         android:elevation="3dp"
         android:translationZ="3dp"
         android:stateListAnimator="@null"
@@ -59,6 +62,7 @@
         android:text="option C"
         android:textSize="16sp"
         android:background="@drawable/unselected_btn"
+        app:backgroundTint="@null"
         android:elevation="3dp"
         android:translationZ="3dp"
         android:stateListAnimator="@null"
@@ -72,6 +76,7 @@
         android:text="option D"
         android:textSize="16sp"
         android:background="@drawable/unselected_btn"
+        app:backgroundTint="@null"
         android:elevation="3dp"
         android:translationZ="3dp"
         android:stateListAnimator="@null"
