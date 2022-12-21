@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
                         public void onFailure() {
 
                             Toast.makeText(SplashActivity.this, "Something went wrong ! Please Try Again Later !", Toast.LENGTH_SHORT).show();
-
+                            //
                         }
                     });
 
