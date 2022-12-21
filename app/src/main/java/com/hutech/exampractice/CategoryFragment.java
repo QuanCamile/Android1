@@ -33,17 +33,7 @@ public class CategoryFragment extends Fragment {
     }
 
     private GridView catView;
-    public static List<CategoryModel> catList = new ArrayList<>();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CategoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CategoryFragment newInstance(String param1, String param2) {
         CategoryFragment fragment = new CategoryFragment();
         Bundle args = new Bundle();
@@ -70,20 +60,10 @@ public class CategoryFragment extends Fragment {
 
         catView = view.findViewById(R.id.cat_Grid);
 
-        loadCategories();
-        CategoryAdapter adapter = new CategoryAdapter(catList);
+       // loadCategories();
+        CategoryAdapter adapter = new CategoryAdapter(DbQuery.g_catList);
         catView.setAdapter(adapter);
         return view;
     }
-    private void loadCategories(){
-        catList.clear();
-        catList.add(new CategoryModel("1", "GK", 20));
-        catList.add(new CategoryModel("2", "HISTORY", 30));
-        catList.add(new CategoryModel("3", "ENGLISH", 10));
-        catList.add(new CategoryModel("4", "SCIENCE", 25));
-        catList.add(new CategoryModel("5", "MATHS", 20));
 
-
-
-}
 }
