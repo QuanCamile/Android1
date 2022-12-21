@@ -47,7 +47,9 @@ public class TestActivity extends AppCompatActivity {
         progressDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         dialogText = progressDialog.findViewById(R.id.dialog_text);
-        dialogText.setText("Loading...");
+        dialogText.setText("Loading... ");
+
+        progressDialog.show();
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

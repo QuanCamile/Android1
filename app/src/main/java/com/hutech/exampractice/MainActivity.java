@@ -44,15 +44,15 @@ public class MainActivity extends AppCompatActivity {
                     switch (menuItem.getItemId())
                     {
                         case R.id.nav_home:
-                            setFragement(new CategoryFragment());
+                            bottomNavigationView.setSelectedItemId(R.id.nav_home);
                             return true;
 
                         case R.id.nav_leaderboard:
-                            setFragement(new LeaderBoardFragment());
+                            bottomNavigationView.setSelectedItemId(R.id.nav_leaderboard);
                             return true;
 
                         case R.id.nav_account:
-                            setFragement(new AccountFragment());
+                            bottomNavigationView.setSelectedItemId(R.id.nav_account);
                             return true;
                     }
                     return false;
