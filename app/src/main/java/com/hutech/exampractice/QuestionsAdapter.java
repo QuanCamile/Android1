@@ -1,5 +1,10 @@
 package com.hutech.exampractice;
 
+import static com.hutech.exampractice.DbQuery.ANSWERED;
+import static com.hutech.exampractice.DbQuery.REVIEW;
+import static com.hutech.exampractice.DbQuery.UNANSWERED;
+import static com.hutech.exampractice.DbQuery.g_quesList;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,12 +102,17 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 btn.setBackgroundResource(R.drawable.selected_btn);
                 DbQuery.g_quesList.get(quesID).setSelectedAns(option_num);
 
+                changeStatus(quesID, ANSWERED);
+
                 prevSelectedB = btn;
             }else{
 
                 if(prevSelectedB.getId() == btn.getId()){
                     btn.setBackgroundResource(R.drawable.unselected_btn);
                     DbQuery.g_quesList.get(quesID).setSelectedAns(-1);
+
+                    changeStatus(quesID, UNANSWERED);
+
 
                     prevSelectedB = null;
                 }
@@ -112,9 +122,17 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
                     DbQuery.g_quesList.get(quesID).setSelectedAns(option_num);
 
+                    changeStatus(quesID, ANSWERED);
                     prevSelectedB = btn;
                 }
             }
+        }
+    }
+
+    private void changeStatus(int id, int status){
+        if(g_quesList.get(id).getStatus() != REVIEW)
+        {
+            g_quesList.get(id).setStatus(status);
         }
     }
 

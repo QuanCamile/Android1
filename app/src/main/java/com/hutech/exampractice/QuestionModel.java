@@ -8,6 +8,7 @@ public class QuestionModel {
     private String optionD;
     private int correctAns;
     private int selectedAns;
+    private int status;
 
     public String getQuestion() {
         return question;
@@ -57,7 +58,15 @@ public class QuestionModel {
         this.correctAns = correctAns;
     }
 
-    public QuestionModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns) {
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public QuestionModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status) {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -65,6 +74,7 @@ public class QuestionModel {
         this.optionD = optionD;
         this.correctAns = correctAns;
         this.selectedAns = selectedAns;
+        this.status = status;
     }
 
     public int getSelectedAns() {
