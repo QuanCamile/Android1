@@ -11,6 +11,7 @@ import static com.hutech.exampractice.DbQuery.g_selected_test_index;
 import static com.hutech.exampractice.DbQuery.g_testList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -28,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class QuestionsActivity extends AppCompatActivity {
@@ -44,6 +47,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private GridView quesListGV;
     private ImageView markImage;
     private QuestionGridAdapter gridAdapter;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +94,8 @@ public class QuestionsActivity extends AppCompatActivity {
 
         tvQuesID.setText("1/" + String.valueOf(g_quesList.size()));
         catNameTV.setText(g_catList.get(g_selected_cat_index).getName());
+
+        g_quesList.get(0).setStatus(UNANSWERED);
     }
 
     private void setSnapHelper(){
@@ -106,6 +112,13 @@ public class QuestionsActivity extends AppCompatActivity {
 
                 if(g_quesList.get(quesID).getStatus() == NOT_VISITED)
                     g_quesList.get(quesID).setStatus(UNANSWERED);
+
+                if(g_quesList.get(quesID).getStatus() == REVIEW){
+                    markImage.setVisibility(View.VISIBLE);
+                }
+                else {
+                    markImage.setVisibility(View.GONE);
+                }
 
                 tvQuesID.setText(String.valueOf(quesID + 1) + "/" + String.valueOf(g_quesList.size()));
 
@@ -143,6 +156,8 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 g_quesList.get(quesID).setSelectedAns(-1);
+                g_quesList.get(quesID).setStatus(UNANSWERED);
+                markImage.setVisibility(View.GONE);
 
                 questionsAdapter.notifyDataSetChanged();
             }
@@ -187,6 +202,44 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
             }
         });
+        submitB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitTest();
+            }
+        });
+
+    }
+    private void submitTest()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
+        builder.setCancelable(true);
+
+        View view = getLayoutInflater().inflate(R.layout.alert_dialog_layout, null);
+
+        Button cancelB = view.findViewById(R.id.cancelB);
+        Button confirmB = view.findViewById(R.id.confirmB);
+
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+
+        cancelB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        confirmB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
+                alertDialog.dismiss();
+                Intent intent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+                startActivity(intent);
+                QuestionsActivity.this.finish();
+            }
+        });
+        alertDialog.show();
 
     }
 
@@ -200,7 +253,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private void startTimer(){
         long totalTime = g_testList.get(g_selected_test_index).getTime()*60*1000;
 
-        CountDownTimer timer = new CountDownTimer(totalTime + 1000, 1000) {
+        timer = new CountDownTimer(totalTime + 1000, 1000) {
             @Override
             public void onTick(long remainingTime) {
                 String time = String.format("%02d:%02d min",
@@ -217,6 +270,9 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
 
+                Intent intent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+                startActivity(intent);
+                QuestionsActivity.this.finish();
 
             }
         };
