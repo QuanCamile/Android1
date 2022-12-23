@@ -1,4 +1,4 @@
-package com.hutech.exampractice;
+package Models;
 
 public class QuestionModel {
     private String question;

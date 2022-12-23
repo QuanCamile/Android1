@@ -1,4 +1,4 @@
-package com.hutech.exampractice;
+package Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,7 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hutech.exampractice.DbQuery;
+import com.hutech.exampractice.R;
+import com.hutech.exampractice.StartTestActivity;
+
 import java.util.List;
+
+import Models.TestModel;
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 

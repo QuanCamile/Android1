@@ -1,4 +1,4 @@
-package com.hutech.exampractice;
+package Adapter;
 
 import static com.hutech.exampractice.DbQuery.ANSWERED;
 import static com.hutech.exampractice.DbQuery.NOT_VISITED;
@@ -15,6 +15,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+
+import com.hutech.exampractice.DbQuery;
+import com.hutech.exampractice.QuestionsActivity;
+import com.hutech.exampractice.R;
 
 public class QuestionGridAdapter  extends BaseAdapter {
 

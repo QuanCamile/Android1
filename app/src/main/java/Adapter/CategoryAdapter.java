@@ -1,4 +1,4 @@
-package com.hutech.exampractice;
+package Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -7,7 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.hutech.exampractice.DbQuery;
+import com.hutech.exampractice.R;
+import com.hutech.exampractice.TestActivity;
+
 import java.util.List;
+
+import Models.CategoryModel;
+
 //command nhatminhh
 //võ anh quan
 public class CategoryAdapter extends BaseAdapter {

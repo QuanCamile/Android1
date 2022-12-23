@@ -1,4 +1,4 @@
-package com.hutech.exampractice;
+package Models;
 
 public class TestModel {
 

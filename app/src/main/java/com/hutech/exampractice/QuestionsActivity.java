@@ -30,8 +30,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import Adapter.QuestionGridAdapter;
+import Adapter.QuestionsAdapter;
 
 public class QuestionsActivity extends AppCompatActivity {
 
@@ -48,6 +50,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private ImageView markImage;
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
+    private long timeLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,7 +237,10 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 timer.cancel();
                 alertDialog.dismiss();
+
                 Intent intent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+                long totalTime = g_testList.get(g_selected_test_index).getTime()*60*1000;
+                intent.putExtra("TIME_TAKEN", totalTime - timeLeft);
                 startActivity(intent);
                 QuestionsActivity.this.finish();
             }
@@ -256,6 +262,9 @@ public class QuestionsActivity extends AppCompatActivity {
         timer = new CountDownTimer(totalTime + 1000, 1000) {
             @Override
             public void onTick(long remainingTime) {
+
+                timeLeft = remainingTime;
+
                 String time = String.format("%02d:%02d min",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
@@ -271,6 +280,8 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onFinish() {
 
                 Intent intent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+                long totalTime = g_testList.get(g_selected_test_index).getTime()*60*1000;
+                intent.putExtra("TIME_TAKEN", totalTime - timeLeft);
                 startActivity(intent);
                 QuestionsActivity.this.finish();
 

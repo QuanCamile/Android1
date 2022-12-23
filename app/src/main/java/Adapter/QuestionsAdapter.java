@@ -1,4 +1,4 @@
-package com.hutech.exampractice;
+package Adapter;
 
 import static com.hutech.exampractice.DbQuery.ANSWERED;
 import static com.hutech.exampractice.DbQuery.REVIEW;
@@ -14,7 +14,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hutech.exampractice.DbQuery;
+import com.hutech.exampractice.R;
+
 import java.util.List;
+
+import Models.QuestionModel;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 

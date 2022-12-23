@@ -18,6 +18,13 @@ import com.google.firebase.firestore.WriteBatch;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import Models.CategoryModel;
+import Models.ProfileModel;
+import Models.QuestionModel;
+import Models.RankModel;
+import Models.TestModel;
+
 //testGit
 public class DbQuery {
     public static FirebaseFirestore g_firestore;
@@ -28,6 +35,7 @@ public class DbQuery {
 
     public static List<QuestionModel> g_quesList = new ArrayList<>();
     public static ProfileModel myProfile = new ProfileModel("NA", null);
+    public static RankModel myPerformance = new RankModel(0, -1);
 
     public static final int NOT_VISITED = 0;
     public static final int UNANSWERED = 1;
@@ -75,6 +83,8 @@ public class DbQuery {
                         myProfile.setName(documentSnapshot.getString("NAME"));
                         myProfile.setEmail(documentSnapshot.getString("EMAIL_ID"));
 
+                        myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
+
                         completeListener.onSuccess();
 
                     }
@@ -88,6 +98,39 @@ public class DbQuery {
                 });
     }
 
+
+    public static void saveResult(int score, MyCompleteListener completeListener)
+    {
+        WriteBatch batch = g_firestore.batch();
+
+        DocumentReference userDoc = g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid());
+
+        batch.update(userDoc, "TOTAL_SCORE", score);
+
+        if(score > g_testList.get(g_selected_test_index).getTopScore())
+        {
+            DocumentReference scoreDoc = userDoc.collection("USER_DATA").document("MY_SCORES");
+
+            batch.update(scoreDoc, g_testList.get(g_selected_test_index).getTestID(), score);
+
+        }
+        batch.commit()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        if(score >  g_testList.get(g_selected_test_index).getTopScore())
+                            g_testList.get(g_selected_test_index).setTopScore(score);
+
+                        myPerformance.setScore(score);
+                        completeListener.onSuccess();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                            completeListener.onFailure();
+                    }
+                });
+    }
     // Load tất cả các danh mục lên giao diện
     public static void loadCategories(final MyCompleteListener completeListener){
         g_catList.clear();
