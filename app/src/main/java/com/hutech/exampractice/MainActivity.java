@@ -43,18 +43,15 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     switch (menuItem.getItemId())
                     {
-                        case R.id.nav_home:
-                           // bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                        case R.id.navigation_home:
                             setFragement(new CategoryFragment());
                             return true;
 
-                        case R.id.nav_leaderboard:
-                            //bottomNavigationView.setSelectedItemId(R.id.nav_leaderboard);
+                        case R.id.navigation_leaderboard:
                             setFragement(new LeaderBoardFragment());
                             return true;
 
-                        case R.id.nav_account:
-                           // bottomNavigationView.setSelectedItemId(R.id.nav_account);
+                        case R.id.navigation_account:
                             setFragement(new AccountFragment());
                             return true;
                     }
