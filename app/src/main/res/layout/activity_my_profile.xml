@@ -32,17 +32,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         >
+
         <TextView
+            android:id="@+id/profile_text"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:text="A"
-            android:backgroundTint="@color/green"
             android:layout_marginBottom="16dp"
-            android:gravity="center"
             android:background="@drawable/circle"
+            android:backgroundTint="@color/green"
+            android:gravity="center"
+            android:text="A"
+            android:textColor="@color/white"
             android:textSize="48sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
 
             />
     </LinearLayout>
@@ -157,12 +159,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
+        android:id="@+id/button_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         >
         <Button
+            android:id="@+id/cancelB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
@@ -176,6 +179,7 @@
             android:background="@color/white"
             />
         <Button
+            android:id="@+id/saveB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="save"
