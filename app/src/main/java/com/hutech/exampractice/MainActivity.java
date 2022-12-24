@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -65,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.appBarMain.toolbar);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //int cat_index = DbQuery.g_catList.get(DbQuery.g_selected_cat_index);
+        getSupportActionBar().setTitle("Categories");
         bottomNavigationView = findViewById(R.id.bottom_nav_bar);
         main_frame = findViewById(R.id.nav_host_fragment_content_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
