@@ -50,7 +50,8 @@ public class ScoreActivity extends AppCompatActivity {
         viewAnsB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(ScoreActivity.this, AnswerActivity.class);
+                startActivity(intent);
             }
         });
         reAttemptB.setOnClickListener(new View.OnClickListener() {
