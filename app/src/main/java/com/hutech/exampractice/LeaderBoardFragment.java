@@ -3,10 +3,13 @@ package com.hutech.exampractice;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +26,8 @@ public class LeaderBoardFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TextView totalUsersTV, myImgTextTV, myScoreTV, myRankTV;
+    private RecyclerView usersView;
 
     public LeaderBoardFragment() {
         // Required empty public constructor
@@ -59,6 +64,28 @@ public class LeaderBoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leader_board, container, false);
+        View view = inflater.inflate(R.layout.fragment_leader_board, container, false);
+
+          ((MainActivity)getActivity()).getSupportActionBar().setTitle("LeaderBoard");
+
+
+         initViews(view);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager((getContext()));
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        usersView.setLayoutManager(layoutManager);
+
+        totalUsersTV.setText("Total Users:");
+
+
+        return view;
+    }
+    private void initViews(View view)
+    {
+        totalUsersTV = view.findViewById(R.id.total_users);
+        myImgTextTV = view.findViewById(R.id.img_text);
+        myScoreTV = view.findViewById(R.id.total_score);
+        myRankTV = view.findViewById(R.id.rank);
+        usersView = view.findViewById(R.id.users_view);
     }
 }

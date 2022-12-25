@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import androidx.appcompat.widget.Toolbar;
 
-import Adapter.CategoryAdapter;
+import com.hutech.exampractice.Adapter.CategoryAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

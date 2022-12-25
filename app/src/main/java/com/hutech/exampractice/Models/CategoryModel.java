@@ -1,4 +1,4 @@
-package Models;
+package com.hutech.exampractice.Models;
 
 public class CategoryModel {
     private String docID;

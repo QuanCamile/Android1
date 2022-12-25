@@ -32,8 +32,8 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
-import Adapter.QuestionGridAdapter;
-import Adapter.QuestionsAdapter;
+import com.hutech.exampractice.Adapter.QuestionGridAdapter;
+import com.hutech.exampractice.Adapter.QuestionsAdapter;
 
 public class QuestionsActivity extends AppCompatActivity {
 

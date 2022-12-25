@@ -1,4 +1,4 @@
-package Adapter;
+package com.hutech.exampractice.Adapter;
 
 import static com.hutech.exampractice.DbQuery.ANSWERED;
 import static com.hutech.exampractice.DbQuery.NOT_VISITED;

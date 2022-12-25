@@ -1,4 +1,4 @@
-package Adapter;
+package com.hutech.exampractice.Adapter;
 
 import static com.hutech.exampractice.DbQuery.ANSWERED;
 import static com.hutech.exampractice.DbQuery.REVIEW;
@@ -19,7 +19,7 @@ import com.hutech.exampractice.R;
 
 import java.util.List;
 
-import Models.QuestionModel;
+import com.hutech.exampractice.Models.QuestionModel;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 

@@ -1,4 +1,4 @@
-package Adapter;
+package com.hutech.exampractice.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ import com.hutech.exampractice.StartTestActivity;
 
 import java.util.List;
 
-import Models.TestModel;
+import com.hutech.exampractice.Models.TestModel;
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 

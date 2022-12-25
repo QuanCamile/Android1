@@ -1,4 +1,4 @@
-package Adapter;
+package com.hutech.exampractice.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import com.hutech.exampractice.TestActivity;
 
 import java.util.List;
 
-import Models.CategoryModel;
+import com.hutech.exampractice.Models.CategoryModel;
 
 //command nhatminhh
 //võ anh quan

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import Adapter.TestAdapter;
+import com.hutech.exampractice.Adapter.TestAdapter;
 
 public class TestActivity extends AppCompatActivity {
 
