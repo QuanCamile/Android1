@@ -16,6 +16,10 @@
             android:id="@+id/nav_leaderboard"
             android:icon="@drawable/ic_leaderboard"
             android:title="Leader Board" />
+        <item
+            android:id="@+id/nav_bookmark"
+            android:icon="@drawable/ic_bookmark_selected"
+            android:title="Saved Questions" />
 
     </group>
 </menu>

@@ -110,7 +110,7 @@ public class LeaderBoardFragment extends Fragment {
                      calculateRank();
                  }
 
-                 myScoreTV.setText("Score:"+ myPerformance.getScore());
+                 myScoreTV.setText("Score: "+ myPerformance.getScore());
                  myRankTV.setText("Rank - " + myPerformance.getRank());
 
 

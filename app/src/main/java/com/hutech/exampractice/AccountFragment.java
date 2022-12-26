@@ -147,7 +147,7 @@ public class AccountFragment extends Fragment {
         {
 
             score.setText("Score: "+ myPerformance.getScore());
-            if(myPerformance.getScore()!= 0)
+            if(myPerformance.getScore() != 0)
             rank.setText("Rank - " + myPerformance.getRank());
         }
 
@@ -185,6 +185,9 @@ public class AccountFragment extends Fragment {
         bookmarksB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(getContext(), BookmarkActivity.class);
+                startActivity(intent);
 
             }
         });

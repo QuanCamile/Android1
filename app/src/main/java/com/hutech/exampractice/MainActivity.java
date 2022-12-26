@@ -1,6 +1,7 @@
 package com.hutech.exampractice;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -153,6 +154,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setFragement(new AccountFragment());
                 bottomNavigationView.setSelectedItemId(R.id.nav_account);
                 break;
+            case R.id.nav_bookmark:
+                Intent intent = new Intent(MainActivity.this, BookmarkActivity.class);
+                startActivity(intent);
             default:
                 fragment = new CategoryFragment();
                 bottomNavigationView.setSelectedItemId(R.id.nav_home);
@@ -171,6 +175,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+
+        int id = item.getItemId();
+
+        if(id == R.id.nav_home){
+            setFragement(new CategoryFragment());
+        }else if(id == R.id.nav_account){
+            setFragement(new AccountFragment());
+        }else if( id == R.id.nav_leaderboard){
+            setFragement(new LeaderBoardFragment());
+        }else if(id == R.id.nav_bookmark)
+        {
+            Intent intent = new Intent(MainActivity.this, BookmarkActivity.class);
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

@@ -14,11 +14,14 @@ import com.hutech.exampractice.R;
 import java.util.List;
 
 public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder> {
+
+    private List<QuestionModel> quesList;
+
     public AnswerAdapter(List<QuestionModel> quesList) {
         this.quesList = quesList;
     }
 
-    private List<QuestionModel> quesList;
+
     @NonNull
     @Override
     public AnswerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
