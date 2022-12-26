@@ -9,6 +9,25 @@ public class QuestionModel {
     private int correctAns;
     private int selectedAns;
     private int status;
+    private boolean isBookmarked;
+    private String qID;
+
+
+
+    public QuestionModel(String qID, String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status, boolean isBookmarked) {
+        this.qID = qID;
+        this.question = question;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.correctAns = correctAns;
+        this.selectedAns = selectedAns;
+        this.status = status;
+        this.isBookmarked = isBookmarked;
+
+    }
+
 
     public String getQuestion() {
         return question;
@@ -66,15 +85,20 @@ public class QuestionModel {
         this.status = status;
     }
 
-    public QuestionModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status) {
-        this.question = question;
-        this.optionA = optionA;
-        this.optionB = optionB;
-        this.optionC = optionC;
-        this.optionD = optionD;
-        this.correctAns = correctAns;
-        this.selectedAns = selectedAns;
-        this.status = status;
+    public boolean isBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        isBookmarked = bookmarked;
+    }
+
+    public String getqID() {
+        return qID;
+    }
+
+    public void setqID(String qID) {
+        this.qID = qID;
     }
 
     public int getSelectedAns() {

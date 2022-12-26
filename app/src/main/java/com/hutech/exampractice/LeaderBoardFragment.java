@@ -130,7 +130,7 @@ public class LeaderBoardFragment extends Fragment {
         });
 
         totalUsersTV.setText("Total Users: " + DbQuery.g_usersCount);
-        myImgTextTV.setText(myPerformance.getName().toUpperCase().substring(0, 1));
+    myImgTextTV.setText(myPerformance.getName().toUpperCase().substring(0, 1));
 
 
         return view;

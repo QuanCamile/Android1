@@ -5,6 +5,7 @@ public class RankModel {
     private int rank;
     private String name;
 
+
     public RankModel(String name, int score, int rank) {
         this.score = score;
         this.rank = rank;
