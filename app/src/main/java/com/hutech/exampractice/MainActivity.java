@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public ActivityMainBinding binding;
     public TextView drawerProfileName, drawerProfileText;
 
-    private FrameLayout main_frame;
+    public FrameLayout main_frame; // là một Frament
     public  DrawerLayout mDrawer;
 
     private BottomNavigationView bottomNavigationView;
@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             };
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,18 +80,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView = findViewById(R.id.bottom_nav_bar);
         main_frame = findViewById(R.id.nav_host_fragment_content_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-       /* binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
         //DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
         mDrawer = findViewById(R.id.drawer_layout);
 
+        // Code sẵn
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 // R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 R.id.nav_home, R.id.nav_leaderboard, R.id.nav_account)
@@ -101,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupDrawerContent(navigationView);
 
+        // Sét thông tin người dùng
         drawerProfileName = navigationView.getHeaderView(0).findViewById(R.id.nav_drawer_name);
         drawerProfileText = navigationView.getHeaderView(0).findViewById(R.id.nav_drawer_text_img);
 
@@ -115,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void setFragement(Fragment fragement){
+    // Tạo Fragment cho menu
+    public void setFragement(Fragment fragement){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(main_frame.getId(), fragement);
         transaction.commit();
@@ -142,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // Lắng nghe drawer để load fragment tương ứng
-
     public void selectDrawerItem(MenuItem menuItem){
         Fragment fragment;
         switch (menuItem.getItemId()){
@@ -166,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    // Bấm vào menu
    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
