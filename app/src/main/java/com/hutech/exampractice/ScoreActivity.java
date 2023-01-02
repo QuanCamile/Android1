@@ -3,6 +3,9 @@ package com.hutech.exampractice;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ComponentActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -18,7 +21,7 @@ import com.hutech.exampractice.Models.QuestionModel;
 
 import java.util.concurrent.TimeUnit;
 
-public class ScoreActivity extends AppCompatActivity {
+public class ScoreActivity extends AppCompatActivity{
 
     private TextView scoreTV, timeTV, totalQTV, correctQTV, wrongQTV, unattemptedQTV;
     private Button leaderB, reAttemptB, viewAnsB;
@@ -26,6 +29,7 @@ public class ScoreActivity extends AppCompatActivity {
     private Dialog progressDialog;
     private TextView dialogText;
     private int finalScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,17 @@ public class ScoreActivity extends AppCompatActivity {
 
         setBookMarks();
 
+
+        leaderB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
+                startActivity(intent);
+               // getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, new LeaderBoardFragment()).commit();
+
+            }
+        });
+
         viewAnsB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +73,7 @@ public class ScoreActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         reAttemptB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +135,7 @@ public class ScoreActivity extends AppCompatActivity {
         timeTV.setText(time);
     }
 
+    // Quay lại bài để làm lại
     private void reAttemptB()
     {
         for (int i=0; i< DbQuery.g_quesList.size(); i++)
@@ -137,7 +154,7 @@ public class ScoreActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
 
-                progressDialog.dismiss();
+                progressDialog.dismiss();// dừng loading
 
             }
 
@@ -177,7 +194,7 @@ public class ScoreActivity extends AppCompatActivity {
         }
     }
 
-
+    // Dừng activy đang selected ==> Quay lại
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 

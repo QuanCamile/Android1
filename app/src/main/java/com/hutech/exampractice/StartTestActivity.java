@@ -20,15 +20,14 @@ public class StartTestActivity extends AppCompatActivity {
     private TextView catName, testNo, totalQ, bestScore, time;
     private Button startTestB;
     private ImageView backB;
-    private Dialog progressDialog;
+    private Dialog progressDialog;  // Di chuyển vào main
     private TextView dialogText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_test);
 
-
-        init();
+        init(); // khởi tạo
 
         progressDialog = new Dialog(StartTestActivity.this);
         progressDialog.setContentView(R.layout.dialog_layout);
@@ -54,14 +53,9 @@ public class StartTestActivity extends AppCompatActivity {
                 Toast.makeText(StartTestActivity.this, "Something went wrong ! Please try again.",
                         Toast.LENGTH_SHORT).show();
             }
-
-
         });
-
-
-
-
     }
+
     private void init()
     {
         catName = findViewById(R.id.st_cat_name);
@@ -92,11 +86,11 @@ public class StartTestActivity extends AppCompatActivity {
 
     private void setData()
     {
-        catName.setText(g_catList.get(DbQuery.g_selected_cat_index).getName());
-        testNo.setText("Test No. "+ String.valueOf(DbQuery.g_selected_test_index + 1));
-        totalQ.setText(String.valueOf(DbQuery.g_quesList.size()));
-        bestScore.setText((String.valueOf(DbQuery.g_testList.get(DbQuery.g_selected_test_index).getTopScore())));
-        time.setText(String.valueOf(DbQuery.g_testList.get(DbQuery.g_selected_test_index).getTime()));
+        catName.setText(g_catList.get(DbQuery.g_selected_cat_index).getName()); // Lấy tên danh mục
+        testNo.setText("Test No. "+ String.valueOf(DbQuery.g_selected_test_index + 1)); // Lấy ra tên phần
+        totalQ.setText(String.valueOf(DbQuery.g_quesList.size())); // Lấy ra tên phần
+        bestScore.setText((String.valueOf(DbQuery.g_testList.get(DbQuery.g_selected_test_index).getTopScore()))); // lấy mức điểm tối đa
+        time.setText(String.valueOf(DbQuery.g_testList.get(DbQuery.g_selected_test_index).getTime())); // lấy ra mức thời gian
 
     }
 

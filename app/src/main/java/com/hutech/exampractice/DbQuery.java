@@ -30,30 +30,32 @@ import com.hutech.exampractice.Models.TestModel;
 //testGit
 public class DbQuery {
     public static FirebaseFirestore g_firestore;
-    public static List<CategoryModel> g_catList = new ArrayList<>();
-    public static int g_selected_cat_index = 0;
-    public static List<TestModel> g_testList = new ArrayList<>();
-    public static int g_selected_test_index = 0;
+    public static List<CategoryModel> g_catList = new ArrayList<>(); // khai báo list danh mục
+    public static int g_selected_cat_index = 0; // lấy danh mục chọn
+    public static List<TestModel> g_testList = new ArrayList<>(); // Khai báo list test
+    public static int g_selected_test_index = 0; // lấy chỉ mục bài
 
     public static List<String> g_bmIdList = new ArrayList<>();
     public static List<QuestionModel> g_bookmarksList = new ArrayList<>();
 
-    public static List<QuestionModel> g_quesList = new ArrayList<>();
+    public static List<QuestionModel> g_quesList = new ArrayList<>(); // Khai báo list test
 
     public static List<RankModel> g_userList = new ArrayList<>();
     public static int g_usersCount = 0;
     public static boolean isMeOnTopList = false;
 
     public static ProfileModel myProfile = new ProfileModel("NA", null, null, 0);
-    public static RankModel myPerformance = new RankModel("NULL",0, -1);
+    public static RankModel myPerformance = new RankModel("NULL",0, -1); // Lấy xếp hạng của user
 
-    public static final int NOT_VISITED = 0;
+    // Khai báo 4 trạng thái
+    public static final int NOT_VISITED = 0; // Chưa làm
     public static final int UNANSWERED = 1;
     public static final int ANSWERED = 2;
     public static final int REVIEW = 3;
 
     static int tmp;
 
+    // Lưu thông tin userData vào FireBase
     public static void createUserData(String email, String name,final MyCompleteListener completeListener){
         Map<String, Object> userData = new ArrayMap<>();
 
@@ -62,6 +64,7 @@ public class DbQuery {
         userData.put("TOTAL_SCORE", 0);
         userData.put("BOOKMARKS", 0);
 
+        // Lấy bảng cần lưu
         DocumentReference userDoc = g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         WriteBatch batch = g_firestore.batch();
@@ -87,6 +90,7 @@ public class DbQuery {
                 });
     }
 
+    //Lưu thông tin cá nhân -- cập nhật
     public static void saveProfileData(String name, String phone, MyCompleteListener completeListener)
     {
         Map<String, Object> profileData = new ArrayMap<>();
@@ -117,6 +121,7 @@ public class DbQuery {
                 });
     }
 
+    // Lấy thông tin user
     public static void getUserData(MyCompleteListener completeListener){
         g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid())
                 .get()
@@ -125,12 +130,15 @@ public class DbQuery {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         myProfile.setName(documentSnapshot.getString("NAME"));
                         myProfile.setEmail(documentSnapshot.getString("EMAIL_ID"));
+
+                        // người dùng có số điện thoại thì lấy lên
                         if(documentSnapshot.getString("PHONE") != null)
                             myProfile.setPhone(documentSnapshot.getString("PHONE"));
 
                         if(documentSnapshot.get("BOOKMARKS") != null)
                             myProfile.setBookmarksCount(documentSnapshot.getLong("BOOKMARKS").intValue());
 
+                        // Lấy tổng điêm
                         myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
                         myPerformance.setName(documentSnapshot.getString("NAME"));
                         completeListener.onSuccess();
@@ -335,7 +343,7 @@ public class DbQuery {
                 });
     }
 
-
+    // Lưu kết quả bài làm
     public static void saveResult(int score, MyCompleteListener completeListener)
     {
         WriteBatch batch = g_firestore.batch();
@@ -391,6 +399,7 @@ public class DbQuery {
                     }
                 });
     }
+
     // Load tất cả các danh mục lên giao diện
     public static void loadCategories(final MyCompleteListener completeListener){
         g_catList.clear();
@@ -425,6 +434,7 @@ public class DbQuery {
                 });
     }
 
+    // Lấy thông tin câu hỏi
     public static void loadquestions(MyCompleteListener completeListener)
     {
         g_quesList.clear();
@@ -468,6 +478,7 @@ public class DbQuery {
 
     }
 
+    //  Load tất các các bài trong danh mục
     public static void loadTestData(MyCompleteListener completeListener){
         g_testList.clear();
 
@@ -499,6 +510,7 @@ public class DbQuery {
                 });
     }
 
+    // load thông tin user
     public static void loadData(final MyCompleteListener completeListener){
         loadCategories(new MyCompleteListener() {
             @Override

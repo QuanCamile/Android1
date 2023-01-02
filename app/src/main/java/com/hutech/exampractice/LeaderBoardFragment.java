@@ -5,6 +5,7 @@ import static com.hutech.exampractice.DbQuery.g_usersCount;
 import static com.hutech.exampractice.DbQuery.myPerformance;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,8 @@ public class LeaderBoardFragment extends Fragment {
     public LeaderBoardFragment() {
         // Required empty public constructor
     }
+
+
 
     /**
      * Use this factory method to create a new instance of
@@ -78,7 +82,9 @@ public class LeaderBoardFragment extends Fragment {
 
           ((MainActivity)getActivity()).getSupportActionBar().setTitle("LeaderBoard");
 
-         initViews(view);
+
+
+        initViews(view);
 
         progressDialog = new Dialog(getContext());
         progressDialog.setContentView(R.layout.dialog_layout);
@@ -96,6 +102,7 @@ public class LeaderBoardFragment extends Fragment {
         adapter = new RankAdapter(DbQuery.g_userList);
 
         usersView.setAdapter(adapter);
+
 
         DbQuery.getTopUsers(new MyCompleteListener() {
             @Override

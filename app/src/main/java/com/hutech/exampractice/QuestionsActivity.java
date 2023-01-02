@@ -44,7 +44,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private ImageView quesListB;
     private int quesID;
     QuestionsAdapter questionsAdapter;
-    private DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout; // khái báo 1 layout Drawer
     private ImageButton drawerCloseB;
     private GridView quesListGV;
     private ImageView markImage;
@@ -69,8 +69,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
         gridAdapter = new QuestionGridAdapter(this, g_quesList.size());
         quesListGV.setAdapter(gridAdapter);
-
-
 
         setSnapHelper();
 
@@ -97,8 +95,8 @@ public class QuestionsActivity extends AppCompatActivity {
 
         quesID = 0;
 
-        tvQuesID.setText("1/" + String.valueOf(g_quesList.size()));
-        catNameTV.setText(g_catList.get(g_selected_cat_index).getName());
+        tvQuesID.setText("1/" + String.valueOf(g_quesList.size())); // Lấy ra số số lượng câu hỏi
+        catNameTV.setText(g_catList.get(g_selected_cat_index).getName()); // Lấy ra tên danh mục luyện thi
 
         g_quesList.get(0).setStatus(UNANSWERED);
 
@@ -127,6 +125,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 if(g_quesList.get(quesID).getStatus() == NOT_VISITED)
                     g_quesList.get(quesID).setStatus(UNANSWERED);
 
+                // Kiểm tra bỏ check câu đánh dấu để xem lại
                 if(g_quesList.get(quesID).getStatus() == REVIEW){
                     markImage.setVisibility(View.VISIBLE);
                 }
@@ -134,6 +133,7 @@ public class QuestionsActivity extends AppCompatActivity {
                     markImage.setVisibility(View.GONE);
                 }
 
+                // Chuyển sang câu hỏi khác
                 tvQuesID.setText(String.valueOf(quesID + 1) + "/" + String.valueOf(g_quesList.size()));
 
                 if(g_quesList.get(quesID).isBookmarked())
@@ -154,6 +154,7 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     private void setClickListeners(){
+        // Quay lại câu hỏi
         prevQuesB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,6 +165,7 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
 
+        // chuyển sang câu hỏi khác
         nextQuesB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,6 +176,7 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
 
+        // Xóa lựa chọn
         clearSelB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,6 +188,7 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
 
+        // Xóa lựa chọn
         quesListB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,6 +208,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
             }
         });
+
         markB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,6 +229,8 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Gửi đi
         submitB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,9 +244,9 @@ public class QuestionsActivity extends AppCompatActivity {
                 addToBookmark();
             }
         });
-
-
     }
+
+    // Hoàn thành bài làm
     private void submitTest()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
@@ -253,12 +260,15 @@ public class QuestionsActivity extends AppCompatActivity {
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
 
+        // Hoàn thành bài làm
         cancelB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
             }
         });
+
+        // Chấp nhận hoàn thành
         confirmB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -276,6 +286,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
 
+    // Đi tới câu hỏi đó
     public void goToQuestion(int position){
         questionsView.smoothScrollToPosition(position);
 
@@ -283,8 +294,9 @@ public class QuestionsActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.END);
     }
 
+    // Chạy thời gian khi bắt đầu bài làm
     private void startTimer(){
-        long totalTime = g_testList.get(g_selected_test_index).getTime()*60*1000;
+        long totalTime = g_testList.get(g_selected_test_index).getTime()*60*1000; // lấy thời gian
 
         timer = new CountDownTimer(totalTime + 1000, 1000) {
             @Override
@@ -300,9 +312,10 @@ public class QuestionsActivity extends AppCompatActivity {
 
                         );
 
-                timerTV.setText(time);
+                timerTV.setText(time); // Set time vào textView
             }
 
+            // Hết thời gian tự động nộp bài
             @Override
             public void onFinish() {
 

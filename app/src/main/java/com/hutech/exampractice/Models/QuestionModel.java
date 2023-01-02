@@ -6,9 +6,9 @@ public class QuestionModel {
     private String optionB;
     private String optionC;
     private String optionD;
-    private int correctAns;
-    private int selectedAns;
-    private int status;
+    private int correctAns; // chỉ mục đáp án đúng
+    private int selectedAns; // Chọn đáp án của người dùng
+    private int status; // Trạng thái
     private boolean isBookmarked;
     private String qID;
 
@@ -77,6 +77,7 @@ public class QuestionModel {
         this.correctAns = correctAns;
     }
 
+    // lấy trạng thái
     public int getStatus() {
         return status;
     }

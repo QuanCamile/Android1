@@ -27,27 +27,32 @@ public class SplashActivity extends AppCompatActivity {
 
         appName = findViewById(R.id.app_name);
 
+        // Set font chữ
         Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
         appName.setTypeface(typeface);
 
+        //Tạo animation cho loader
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.myanim);
         appName.setAnimation(animation);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); // Khởi tạo
 
+        // Khởi tạo để truy vấn vào cơ sở dữ liệu firebase
         DbQuery.g_firestore = FirebaseFirestore.getInstance();
 
         new Thread(){
             @Override
             public void run(){
                 try {
-                    sleep(3000);
+                    sleep(3000); // Đợi 3 giây để load
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
+                // Nêu hệ thống đã đăng nhập trước đó thì vào main chính không thì bắt đăng nhập lại
                 if(mAuth.getCurrentUser() != null)
                 {
+                    // load dữ liệu data
                     DbQuery.loadData(new MyCompleteListener() {
                         @Override
                         public void onSuccess() {
@@ -68,13 +73,12 @@ public class SplashActivity extends AppCompatActivity {
 
                 }
                 else{
+                    // Di chuyển vào main
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                     SplashActivity.this.finish();
                 }
-                //Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                //startActivity(intent);
-                //SplashActivity.this.finish();
+
             }
         }.start();
     }

@@ -72,7 +72,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             setOption(optionD, 4, pos);
 
 
-
+            // click vào đáp án A
             optionA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -80,6 +80,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 }
             });
 
+            // click vào đáp án B
             optionB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -87,6 +88,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 }
             });
 
+            // click vào đáp án C
             optionC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -94,6 +96,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 }
             });
 
+            // click vào đáp án D
             optionD.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -102,6 +105,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             });
         }
 
+        // Chọn vào 1 đáp án
         private void selectOption(Button btn, int option_num, int quesID){
             if(prevSelectedB == null){
                 btn.setBackgroundResource(R.drawable.selected_btn);
@@ -134,6 +138,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         }
     }
 
+    // Thay đổi trạng thái
     private void changeStatus(int id, int status){
         if(g_quesList.get(id).getStatus() != REVIEW)
         {

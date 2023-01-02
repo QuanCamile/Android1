@@ -20,6 +20,7 @@
        />
    <LinearLayout
        android:layout_width="match_parent"
+       android:id="@+id/testButton"
        android:layout_height="wrap_content"
        android:orientation="vertical"
        app:layout_constraintLeft_toLeftOf="parent"
@@ -307,7 +308,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
          android:background="@color/white"
-         android:text="Check your Ranking in LeaderBoard"
+         android:text="Comeback Categories"
           app:backgroundTint="@color/colorAccent"
           android:textColor="@color/colorPrimary"
           android:textSize="13sp"

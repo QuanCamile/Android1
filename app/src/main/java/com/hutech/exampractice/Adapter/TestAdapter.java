@@ -68,6 +68,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
             progressBar.setProgress(progress);
 
+            // Chạy giao diện câu hỏi của mỗi part trong danh mục đó
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

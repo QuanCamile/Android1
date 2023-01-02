@@ -28,6 +28,7 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        // Tạo toolbar
         toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -40,6 +41,7 @@ public class TestActivity extends AppCompatActivity {
 
         testView = findViewById(R.id.test_recycler_view);
 
+        // Tạo animaion progressDialog chờ
         progressDialog = new Dialog(TestActivity.this);
         progressDialog.setContentView(R.layout.dialog_layout);
         progressDialog.setCancelable(false);
@@ -70,14 +72,11 @@ public class TestActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure() {
-
                         progressDialog.dismiss();
                         Toast.makeText(TestActivity.this, "Something went wrong ! Please try again.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
 
             @Override
@@ -88,12 +87,9 @@ public class TestActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
-
-
+    // Dừng activy đang selected ==> Quay lại
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home)

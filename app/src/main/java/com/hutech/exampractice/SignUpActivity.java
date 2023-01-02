@@ -49,20 +49,20 @@ public class SignUpActivity extends AppCompatActivity {
         dialogText = progressDialog.findViewById(R.id.dialog_text);
         dialogText.setText("Registering user...");
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); // Khởi tạo
 
+        // Bấm vào nút quay lại
         backB.setOnClickListener((view) ->{
             finish();
         });
 
+        // Bấm vào nút quay lại
         signUpB.setOnClickListener((view) ->{
             if(validate())
             {
                 signUpBNewUser();
             }
         });
-
-
     }
 
     private boolean validate(){
@@ -102,9 +102,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    // Hàm đăng ký tài khoản với Fire Base
     private void signUpBNewUser(){
         progressDialog.show();
-
 
         mAuth.createUserWithEmailAndPassword(emailStr, passStr)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -113,11 +114,13 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                            Toast.makeText(SignUpActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
 
+                            // Lưu thông tin vào FireBase
                             DbQuery.createUserData(emailStr, nameStr, new MyCompleteListener(){
 
                                 @Override
                                 public void onSuccess() {
 
+                                    // load thông tin dữ liệu data
                                     DbQuery.loadData(new MyCompleteListener() {
                                         @Override
                                         public void onSuccess() {

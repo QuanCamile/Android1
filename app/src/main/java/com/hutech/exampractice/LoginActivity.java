@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Dialog progressDialog;
     private TextView dialogText;
-    private RelativeLayout gSignB;
+    private RelativeLayout gSignB; // Bấm vào layout để đăng nhập google
 
     private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
     private boolean showOneTapUI = true;
@@ -66,14 +66,17 @@ public class LoginActivity extends AppCompatActivity {
         dialogText = progressDialog.findViewById(R.id.dialog_text);
         dialogText.setText("Signing in...");
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); // Khởi tạo
 
+        // Cấu hình đăng nhập bằng google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Sự kiện bấm nút đăng nhập
         loginB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Sự kiện bấm chuyển sang giao diện đăng ký
         signupB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Sự kiện đăng nhập bằng google
         gSignB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,9 +106,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //  Kiêm tra nhập thông itn
     private boolean validateData(){
-
-
         if(email.getText().toString().isEmpty())
         {
             email.setError("Enter E-Mail ID");
@@ -119,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+    // hàm login
     private void login(){
         progressDialog.show();
 
@@ -130,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
+                            // load data
                             DbQuery.loadData(new MyCompleteListener() {
                                 @Override
                                 public void onSuccess() {
@@ -162,10 +168,13 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    // Hàm login với google
     private void googleSignIn(){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
+    // Kết quả đăng nhập fireBase goolge
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -181,6 +190,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+    // lấy idToken
     private void firebaseAuthWithGoogle(String idToken){
         progressDialog.show();
 
@@ -190,12 +201,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Google Sign in Success", Toast.LENGTH_SHORT).show();
+
+                    // Người dùng hiện tại
                     FirebaseUser user =mAuth.getCurrentUser();
 
                     if(task.getResult().getAdditionalUserInfo().isNewUser()){
                         DbQuery.createUserData(user.getEmail(), user.getDisplayName(), new MyCompleteListener() {
                             @Override
                             public void onSuccess() {
+                                // load data
                                 DbQuery.loadData(new MyCompleteListener() {
                                     @Override
                                     public void onSuccess() {
@@ -221,6 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                         });
                     }
                     else{
+                        // load Data
                         DbQuery.loadData(new MyCompleteListener() {
                             @Override
                             public void onSuccess() {
